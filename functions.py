@@ -72,5 +72,8 @@ def download_audio(url: str):
         print("Operation canceled by user.")
         return ""
 
-if __name__ == "__main__":
-    download_audio("https://youtu.be/FuX5_OWObA0?si=iiZCvWHNl8K6xrng")
+if __name__ !="__main__":
+    if not os.path.exists("Downloads"):
+        os.makedirs("Downloads/mp4")
+        os.makedirs("Downloads/mp3")
+        os.makedirs("Downloads/wav")
