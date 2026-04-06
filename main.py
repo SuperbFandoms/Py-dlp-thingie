@@ -3,11 +3,9 @@ import functions as f
 import os
 
 options = {
-    "1": "Download video",
+    "1": "Download Video",
     "2": "Download Audio",
-    "3": "Options",
 }
-options_length = len(options)
 
 if __name__ == "__main__":
 
@@ -16,16 +14,13 @@ if __name__ == "__main__":
             print(f"{key}. {value}")
         try:
             stream = input("Input option: (q to quit) ")
-        
             match (stream):
                 case("1"):
                     url = input("Input URL: ")
                     f.download_video(url)
                 case("2"):
                     url = input("Input URL: ")
-                    f.download_audio()
-                case("3"):
-                    pass
+                    f.download_audio(url)
                 case("q"):
                     exit()
                 case _:
