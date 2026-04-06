@@ -13,17 +13,19 @@ audio_type = ["mp3", "wav"]
 video_command = ['yt-dlp', "-f", "bestvideo+bestaudio/best", "--recode-video", "mp4", "--js-runtimes", r"deno:C:\Users\benco\.deno\bin\deno.exe", "--console-title", "-o", f"{output}\\mp4\\%(title)s - %(uploader|Unknown)s.%(ext)s"]
 audio_command = ["yt-dlp.exe","-x", "--console-title"]
 
+playlist_input = ""
+
 def check_playlist(url, command):
     if "&list" in url:
-        playlist_input = input("This link appears to contain a playlist. Would you like to download the full playlist? [y\\n]")
-    if playlist_input.lower() == "n":
-        command.append("--no-playlist")
-        command.append(url)
-        return command
-    else:
-        command.append("--yes-playlist")
-        command.append(url)
-        return command
+        playlist_input= input("This link appears to contain a playlist. Would you like to download the full playlist? [y\\n]")
+        if playlist_input.lower() == "n":
+            command.append("--no-playlist")
+            command.append(url)
+            return command
+        else:
+            command.append("--yes-playlist")
+            command.append(url)
+            return command
     
 def check_type():
     while True:
@@ -65,6 +67,7 @@ def download_audio(url: str):
         else:
             #--embed-thumbnail
             subprocess.run(command+["--audio-format", audio_type[audio_format], "--embed-thumbnail", "-o", f"{output}\\{audio_type[audio_format]}\\%(title)s - %(uploader|Unknown)s.%(ext)s"], check=True, text=True)
+        print("Video downloaded and converted!")
     except subprocess.CalledProcessError as e:
         print(f"No video was found under this link.\n{e.returncode}: {e.stderr}")
         return ""
